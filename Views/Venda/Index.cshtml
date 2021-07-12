@@ -1,0 +1,32 @@
+﻿@model VendaModel
+@{ 
+  List<VendaModel> vendas = ViewBag.ListaVendas;
+}
+<h3 class="text-center">Listagem de Vendas</h3>
+<br />
+<table class="table table-responsive-md">
+  <thead>
+    <tr class="text-center">
+      <th>Id</th>
+      <th>Data</th>
+      <th>Vendedor</th>
+      <th>Cliente</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach(var venda in vendas) {
+    <tr class="text-center">
+      <td>@venda.Id</td>
+      <td>@venda.Data</td>
+      <td>@venda.VendedorId</td>
+      <td>@venda.ClienteId</td>
+
+      <td>@venda.Total</td>
+    </tr>
+    }
+
+  </tbody>
+</table>
+<br />
+<a asp-controller="Venda" asp-action="Registrar" class="btn btn-block btn-primary">Registrar nova Venda</a>

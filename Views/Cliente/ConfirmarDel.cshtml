@@ -1,0 +1,9 @@
+﻿@{ 
+  var Id = ViewBag.IdCliente;
+}
+
+<div class="container">
+  <h3 class="text-center">Deseja Excluir o cliente permanentemente?</h3>
+  <a href="/Cliente/Deletar/@Id" class="btn btn-danger">Confirmar</a>
+  <a asp-action="Index" asp-controller="Cliente" class="btn btn-secondary">Cancelar</a>
+</div>

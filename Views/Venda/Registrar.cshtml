@@ -1,0 +1,96 @@
+﻿@model VendaModel
+@{
+  ViewData["Title"] = "Registrar";
+  List<ClienteModel> clientes = ViewBag.Clientes;
+  List<VendedorModel> vendedores = ViewBag.Vendedores;
+  List<ProdutoModel> produtos = ViewBag.Produtos;
+  }
+
+<h2 class="text-center">Registrar Venda</h2>
+<br />
+<a class="btn btn-info" asp-action="Index" asp-controller="Venda" style="margin-bottom: 20px;">Voltar</a>
+<br />
+
+<form asp-controller="Venda" asp-action="Registrar" method="post">
+  <div class="row" id="div-registra-venda">
+
+    <div class="form-group col-md-4">
+      <label asp-for="ClienteId" for="clienteid">Cliente: </label>
+      <select asp-for="ClienteId" class="form-control" id="clienteid">
+        <option value="">-- SELECIONE O CLIENTE --</option>
+        @foreach(var cliente in clientes) {
+          <option value="@cliente.Id">@cliente.Nome</option>
+        }
+      </select>
+      <span asp-validation-for="ClienteId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group col-md-4">
+      <label asp-for="VendedorId" for="vendedorid">Vendedor: </label>
+      <select asp-for="VendedorId" class="form-control" id="vendedorid">
+        <option value="">-- SELECIONE O VENDEDOR --</option>
+        @foreach(var vendedore in vendedores) {
+          <option value="@vendedore.Id">@vendedore.Nome</option>
+        }
+      </select>
+      <span asp-validation-for="VendedorId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group col-md-4">
+      <fieldset id="field-produto">
+        <legend>Seleção de produtos</legend>
+        <label for="produtoid" class="text-left">Produto: </label>
+        <select class="form-control" id="produtoid" asp-for="ProdutoId">
+          <option value="">-- SELECIONE UM PRODUTO --</option>
+          @foreach(var produto in produtos) {
+            <option value="@produto.Id">@produto.Nome|@produto.PrecoUnitario</option>
+          }
+        </select>
+        <span asp-validation-for="ProdutoId" class="text-danger"></span>
+        <br />
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label for="quantidade">Quantidade: </label>
+            <input type="number" class="form-control" id="quantidade" />
+          </div>
+
+          <div class="form-group col-md-8">
+            <label>&nbsp;</label>
+            <a href="#" class="btn btn-info form-control" onclick="ListarItensVenda()">Adicionar</a>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+
+  </div>
+  <p class="text-center">Lista de itens selecionados</p>
+  <div class="row">
+    <div id="table-registra-venda" class="col-md-12">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Quantidade</th>
+            <th>Preço Unitário</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody id="listaprodutos">
+        </tbody>
+      </table>
+      <textarea style="display: none; width: 700px; height: 400px; resize: none;" asp-for="ListaProdJson" id="guardaJsonProduto"></textarea>
+      <input id="input-total-text" type="hidden" asp-for="Total"/>
+    </div>
+    <div style="float: left; font-size: 22px;">TOTAL R$</div><div style="float: left; font-size: 22px; margin-left: 5px;" id="recebetotal">0</div>
+  </div>
+
+  <div class="form-group">
+    <input type="submit" value="Registrar" class="btn btn-success" />
+  </div>
+</form>
+
+
+@section Scripts{
+  @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

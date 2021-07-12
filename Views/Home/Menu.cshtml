@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Menu do usuário";
+}
+<br />
+<div id="div-menu" class="container">
+  <div class="row">
+    <div class="col-md-4 menu-itens">
+      <a asp-action="Index" asp-controller="Cliente"><img src="~/icones/clientes.png" class="icon-menu"/></a>
+      <p>Cadastro de Clientes</p>
+    </div>
+    <div class="col-md-4 menu-itens">
+      <a asp-action="Index" asp-controller="Vendedor"><img src="~/icones/vendedores.png" class="icon-menu"/></a>
+      <p>Cadastro de vendedores</p>
+    </div>
+    <div class="col-md-4 menu-itens">
+      <a asp-action="Index" asp-controller="Produto"><img src="~/icones/produtos.png" class="icon-menu"/></a>
+      <p>Cadastro de Produtos</p>
+    </div>
+  </div>
+
+  <br />
+
+  <div class="row" >
+    <div class="col-md-4 menu-itens">
+      <a asp-action="Index" asp-controller="Venda"><img src="~/icones/vendas.png" class="icon-menu" /></a>
+      <p>Registro de Vendas</p>
+    </div>
+    <div class="col-md-4 menu-itens">
+      <a><img src="~/icones/relatorios.png" class="icon-menu" /></a>
+      <p>Relatórios</p>
+    </div>
+    <div class="col-md-4 menu-itens">
+      <a><img src="~/icones/configuracoes.png" class="icon-menu" /></a>
+      <p>Configurações</p>
+    </div>
+  </div>
+
+</div>

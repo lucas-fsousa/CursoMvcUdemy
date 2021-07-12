@@ -1,0 +1,35 @@
+﻿@model VendedorModel
+@{
+    ViewData["Title"] = "Home Page";
+  List<VendedorModel> vendedores = ViewBag.ListaVendedores;
+
+}
+
+<h3 class="text-center">Lista de Vendedores</h3>
+<br />
+<table class="table table-responsive-md">
+  <thead>
+    <tr class="text-center">
+      <th>Id</th>
+      <th>Nome</th>
+      <th>Nome da empresa do Vendedor</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach(var vendedor in vendedores) {
+    <tr class="text-center">
+      <td>@vendedor.Id</td>
+      <td>@vendedor.Nome</td>
+      <td>@vendedor.NomeEpsRepresentante</td>
+      <td class="text-right">
+        <a href="/Vendedor/Editar/@vendedor.Id" class="btn btn-info">Editar</a> - 
+        <a href="/Vendedor/ConfirmarDel/@vendedor.Id" class="btn btn-danger">Delete</a>
+      </td>
+    </tr>
+     }
+
+    </tbody>
+  </table>
+<br />
+<a asp-controller="Vendedor" asp-action="Cadastrar" class="btn btn-block btn-primary">Cadastrar Novo Vendedor</a>

@@ -1,0 +1,43 @@
+﻿@model ProdutoModel
+@{
+    ViewData["Title"] = "Home Page";
+  List<ProdutoModel> produtos = ViewBag.ListaProdutos;
+
+}
+
+<h3 class="text-center">Lista de Produtos</h3>
+<br />
+<table class="table table-hover">
+  <thead>
+    <tr class="text-center">
+      <th>Id</th>
+      <th>Nome</th>
+      <th>Descrição</th>
+      <th>Preço por unidade</th>
+      <th>Quantidade em estoque</th>
+      <th>Unidade de medida</th>
+      <th>Imagem</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach(var produto in produtos) {
+    <tr class="text-center">
+      <td>@produto.Id</td>
+      <td>@produto.Nome</td>
+      <td>@produto.Descricao</td>
+      <td>@produto.PrecoUnitario</td>
+      <td>@produto.QuantidadeEstoque</td>
+      <td>@produto.UnidadeMedida</td>
+      <td><img src="@produto.LinkFoto" style="width: 50px; height: 50px;"/></td>
+      <td class="text-right">
+        <a href="/Produto/Editar/@produto.Id" class="btn btn-info">Editar</a>
+        <a href="/Produto/ConfirmarDel/@produto.Id" class="btn btn-danger">Delete</a>
+      </td>
+    </tr>
+     }
+
+    </tbody>
+  </table>
+<br />
+<a asp-controller="Produto" asp-action="Cadastrar" class="btn btn-block btn-primary">Cadastrar Novo Produto</a>
