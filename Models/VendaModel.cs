@@ -44,18 +44,20 @@ namespace CursoMvcUdemy.Models {
       return ProdutoModel.ListarTodos();
     }
 
-    public static Dictionary<string, string> listardict() {
-      Dictionary<string, string> detalhe_venda = new Dictionary<string, string>();
-      string sqlquery_select = @$"SELECT venda.Id, venda.Data, venda.Total, cliente.Name as 'NomeCliente', vendedor.Name as 'NomeVendedor' FROM venda INNER JOIN Cliente ON cliente.id = ClienteId INNER JOIN vendedor ON vendedor.Id = VendedorId WHERE venda.id = 1;";
+    public static List<Dictionary<string, string>> ListaVendasDetalhadas() {
+      List<Dictionary<string, string>> list = new List<Dictionary<string, string>>();
+      string sqlquery_select = @$"SELECT venda.Id, venda.Data, venda.Total, cliente.Name as 'NomeCliente', vendedor.Name as 'NomeVendedor' FROM venda INNER JOIN Cliente ON cliente.id = ClienteId INNER JOIN vendedor ON vendedor.Id = VendedorId";
       DataTable table = Database.RetornaInfoTable(sqlquery_select);
       foreach(DataRow row in table.Rows) {
+        Dictionary<string, string> detalhe_venda = new Dictionary<string, string>();
         detalhe_venda.Add("IdVenda", row["id"].ToString());
         detalhe_venda.Add("NomeVendedor", row["NomeVendedor"].ToString());
         detalhe_venda.Add("NomeCliente", row["NomeCliente"].ToString());
         detalhe_venda.Add("TotalVenda", row["total"].ToString());
         detalhe_venda.Add("DataVenda", row["data"].ToString());
+        list.Add(detalhe_venda);
       }
-      return detalhe_venda;
+      return list;
     }
 
 

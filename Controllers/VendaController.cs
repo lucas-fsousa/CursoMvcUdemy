@@ -10,7 +10,7 @@ namespace CursoMvcUdemy.Controllers {
 
     public IActionResult Index() {
       //ViewBag.ListaVendas = VendaModel.ListaVendas();
-      ViewBag.TesteDic = VendaModel.listardict();
+      ViewBag.ListaVendas = VendaModel.ListaVendasDetalhadas();
       return View();
     }
 

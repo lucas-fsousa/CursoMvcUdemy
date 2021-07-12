@@ -1,6 +1,7 @@
 ﻿@model VendaModel
 @{ 
-  List<VendaModel> vendas = ViewBag.ListaVendas;
+  //List<VendaModel> vendas = ViewBag.ListaVendas;
+  List<Dictionary<string, string>> DetalhesVendas = ViewBag.ListaVendas;
 }
 <h3 class="text-center">Listagem de Vendas</h3>
 <br />
@@ -15,14 +16,13 @@
     </tr>
   </thead>
   <tbody>
-    @foreach(var venda in vendas) {
+    @foreach(var venda in DetalhesVendas) {
     <tr class="text-center">
-      <td>@venda.Id</td>
-      <td>@venda.Data</td>
-      <td>@venda.VendedorId</td>
-      <td>@venda.ClienteId</td>
-
-      <td>@venda.Total</td>
+      <td>@venda["IdVenda"]</td>
+      <td>@venda["DataVenda"]</td>
+      <td>@venda["NomeVendedor"]</td>
+      <td>@venda["NomeCliente"]</td>
+      <td>@venda["TotalVenda"]</td>
     </tr>
     }
 
