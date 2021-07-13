@@ -28,6 +28,26 @@ namespace Utilidades {
       return table;
     }
 
+    public static DataTable RetornaInfoTable(SqlCommand cmd) {
+      DataTable table = new DataTable();
+      Connection con = new Connection();
+      SqlDataAdapter adapter = new SqlDataAdapter();
+      try {
+        cmd.Connection = con.StartConnection();
+        cmd.Transaction = con.Transaction();
+        adapter.SelectCommand = cmd;
+        adapter.Fill(table);
+        con.CommitTransaction();
+      } catch(Exception exception) {
+        con.RollbackTransaction();
+      } finally {
+        con.CloseConnection();
+      }
+      return table;
+    }
+
+
+
     public static bool ExecutarComando(params string[] sqlquerys) {
       Connection con = new Connection();
       SqlCommand cmd = new SqlCommand();

@@ -1,0 +1,64 @@
+﻿@model RelatorioModel
+@{
+  List<Dictionary<string, string>> DetalhesVendas = ViewBag.ListaVendas;
+}
+
+<h2 class="text-center">Venda Relatório</h2>
+<a asp-action="Index" asp-controller="Relatorio" class="btn btn-dark">Voltar</a>
+
+<form asp-controller="Relatorio" asp-action="Venda" method="post">
+  <div class="row">
+    <div class="form-group col-md-6">
+      <label asp-for="DataInicio" for="de">De: </label>
+      <input asp-for="DataInicio" id="de" class="form-control" />
+      <span asp-validation-for="DataInicio" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-6">
+      <label asp-for="DataFim" for="ate">Até: </label>
+      <input asp-for="DataFim" id="ate" class="form-control" />
+      <span asp-validation-for="DataFim" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+      <input type="submit" value="Pesquisar" class="btn btn-success" />
+    </div>
+  </div>
+</form>
+@{ if(DetalhesVendas != null) {
+    try {
+      <div class="row">
+
+        <div class="col-md-12">
+          <h3 class="text-center">Listagem de Vendas</h3>
+          <br />
+
+          <table class="table table-responsive-md">
+            <thead>
+              <tr class="text-center">
+                <th>Id</th>
+                <th>Data</th>
+                <th>Vendedor</th>
+                <th>Cliente</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach(var venda in DetalhesVendas) {
+                <tr class="text-center">
+                  <td>@venda["IdVenda"]</td>
+                  <td>@venda["DataVenda"]</td>
+                  <td>@venda["NomeVendedor"]</td>
+                  <td>@venda["NomeCliente"]</td>
+                  <td>@venda["TotalVenda"]</td>
+                </tr>
+              }
+
+            </tbody>
+          </table>
+
+          <br />
+        </div>
+
+      </div> } catch { <p></p>}
+  }
+
+}

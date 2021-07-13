@@ -2,8 +2,8 @@
 @{
   ViewData["Title"] = "Registrar";
   List<ClienteModel> clientes = ViewBag.Clientes;
-  List<VendedorModel> vendedores = ViewBag.Vendedores;
   List<ProdutoModel> produtos = ViewBag.Produtos;
+  var vendedor_status = ViewBag.Vendedor;
   }
 
 <h2 class="text-center">Registrar Venda</h2>
@@ -27,12 +27,8 @@
 
     <div class="form-group col-md-4">
       <label asp-for="VendedorId" for="vendedorid">Vendedor: </label>
-      <select asp-for="VendedorId" class="form-control" id="vendedorid">
-        <option value="">-- SELECIONE O VENDEDOR --</option>
-        @foreach(var vendedore in vendedores) {
-          <option value="@vendedore.Id">@vendedore.Nome</option>
-        }
-      </select>
+      <input type="hidden" class="form-control" asp-for="VendedorId" value="@vendedor_status[0]" id="vendedorid"/>
+      <input type="text"  value="@vendedor_status[1]" readonly class="form-control text-center"/>
       <span asp-validation-for="VendedorId" class="text-danger"></span>
     </div>
 

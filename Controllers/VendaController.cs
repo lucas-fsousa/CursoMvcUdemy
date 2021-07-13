@@ -4,12 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CursoMvcUdemy.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace CursoMvcUdemy.Controllers {
   public class VendaController : Controller {
 
+    // Recebe informação do usuario logado via injeção de dependência.
+    private IHttpContextAccessor HttpUserLog;
+    public VendaController(IHttpContextAccessor HttpContextAccessor) {
+      HttpUserLog = HttpContextAccessor;
+    }
+
     public IActionResult Index() {
-      //ViewBag.ListaVendas = VendaModel.ListaVendas();
       ViewBag.ListaVendas = VendaModel.ListaVendasDetalhadas();
       return View();
     }
@@ -22,8 +28,9 @@ namespace CursoMvcUdemy.Controllers {
 
     public void ViewBagsItens() {
       ViewBag.Clientes = VendaModel.RetornaClientes();
-      ViewBag.Vendedores = VendaModel.RetornaVendedores();
       ViewBag.Produtos = VendaModel.RetornaProdutos();
+      string[] vendedor_state = { HttpUserLog.HttpContext.Session.GetString("IdAutenticado"), HttpUserLog.HttpContext.Session.GetString("LoginAutenticado") };
+      ViewBag.Vendedor = vendedor_state;
     }
 
     [HttpPost]

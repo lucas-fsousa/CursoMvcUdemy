@@ -1,11 +1,9 @@
 ﻿@model LoginModel;
 
 @{ ViewData["Title"] = "Login";
-  Layout = null;
-}
-<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-<link rel="stylesheet" href="~/css/site.css" />
 
+  Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
 <div class="row" id="divlogin">
   <h3>Acesso ao sistema de vendas</h3>
   <span class="text-danger text-center" id="errologin">@TempData["ErrorLogin"]</span>
@@ -14,26 +12,19 @@
     <form method="Post" asp-action="Login" asp-controller="Home">
       <div class="form-group">
         <label for="login">Login: </label>
-        <input asp-for="Login" class="form-control" id="login" />
+        <input asp-for="Login" class="form-control text-center" id="login" placeholder="informe o login"/>
         <span asp-validation-for="Login" class="text-danger"></span>
       </div>
       <div class="form-group">
         <label for="senha">Senha: </label>
-        <input asp-for="Senha" class="form-control" id="senha" />
+        <input asp-for="Senha" class="form-control text-center" id="senha" placeholder="informe a senha"/>
         <span asp-validation-for="Senha" class="text-danger"></span>
       </div>
       <div class="form-group">
-        <input type="submit" class="btn btn-success" />
+        <input type="submit" class="btn btn-dark"/>
       </div>
     </form>
+    <p class="text-center">Não tem conta? <a asp-action="" asp-controller="">Cadastre-se</a></p>
 
   </div>
 </div>
-
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
-
-@section Scripts{
-  @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-} 

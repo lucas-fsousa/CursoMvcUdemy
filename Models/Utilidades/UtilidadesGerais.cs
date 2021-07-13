@@ -30,7 +30,7 @@ namespace Utilidades {
           string yyyy = breakdate[0];
           string MM = breakdate[1];
           string dd = breakdate[2];
-          str = String.Concat(yyyy, "/", MM, "/", dd);
+          str = String.Concat(dd, "/", MM, "/", yyyy);
         } catch(Exception) {
           str = "";
         }

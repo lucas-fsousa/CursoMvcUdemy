@@ -11,10 +11,7 @@ namespace CursoMvcUdemy.Models {
   public class VendaModel {
 
     public int Id { get; set; }
-
-    [Required(ErrorMessage = "Informe a data")]
-    [DataType(DataType.Date)]
-    public DateTime Data { get; set; }
+    public string Data { get; set; }
 
     [Required]
     [DataType(DataType.Currency)]
@@ -68,7 +65,7 @@ namespace CursoMvcUdemy.Models {
       foreach(DataRow row in table.Rows) {
         var venda = new VendaModel();
         venda.Id = Convert.ToInt32(row["id"]);
-        venda.Data = Convert.ToDateTime(row["data"]);
+        venda.Data = UtilidadesGerais.SlicingStringDate(row["data"].ToString());
         venda.Total = Convert.ToDecimal(row["total"]);
         venda.VendedorId = Convert.ToInt32(row["vendedorid"]);
         venda.ClienteId = Convert.ToInt32(row["clienteid"]);
@@ -78,7 +75,7 @@ namespace CursoMvcUdemy.Models {
     }
 
     public void Inserir() {
-      this.Data = DateTime.Now;
+      this.Data = DateTime.Now.ToString("dd/MM/yyyy");
       string nome_tabela = "venda";
 
       string sql_insert = @$"INSERT INTO {nome_tabela} VALUES ('{this.Data}', '{this.Total}', {this.VendedorId}, {this.ClienteId})";
