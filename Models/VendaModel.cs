@@ -76,15 +76,17 @@ namespace CursoMvcUdemy.Models {
 
     public void Inserir() {
       this.Data = DateTime.Now.ToString("dd/MM/yyyy");
-      string nome_tabela = "venda";
-
-      string sql_insert = @$"INSERT INTO {nome_tabela} VALUES ('{this.Data}', '{this.Total}', {this.VendedorId}, {this.ClienteId})";
-      string sql_select = @$"SELECT * FROM {nome_tabela} WHERE id = SCOPE_IDENTITY()";
+      string sql_insert = @$"INSERT INTO venda VALUES ('{this.Data}', '{this.Total}', {this.VendedorId}, {this.ClienteId})";
+      string sql_select = @$"SELECT * FROM venda WHERE id = SCOPE_IDENTITY()";
       var idvenda = Database.ExecutaComandoRetornaID(sql_insert, sql_select);
       if(idvenda != -1) {
         List<ItemVendaModel> itemvendamodel = JsonConvert.DeserializeObject<List<ItemVendaModel>>(ListaProdJson);
         foreach(var item in itemvendamodel) {
           string sqlquery = $@"INSERT INTO itemvenda VALUES ({idvenda}, {item.CodigoProduto}, {item.Quantidade}, {item.PrecoUnitario.Replace(",", ".")})";
+
+          string sqlupdate = $@"UPDATE produto SET Quantidade_estoque = (SELECT Quantidade_estoque FROM produto WHERE id = {item.CodigoProduto}) - {item.Quantidade} WHERE id = {item.CodigoProduto}";
+
+          Database.ExecutarComando(sqlupdate);
           Database.ExecutarComando(sqlquery);
         }
       } 
