@@ -43,20 +43,19 @@ namespace CursoMvcUdemy.Models {
       return cliente;
     }
 
-    public void InsertEdit() {
+    public bool InsertEdit() {
       string sqlquery = "";
       if(this.Id != 0) {
         sqlquery = $@"UPDATE cliente set name = '{this.Nome}', cpf = '{this.Cpf}' WHERE id = {this.Id}";
       } else {
         sqlquery = $@"INSERT INTO Cliente (name, cpf) values ('{this.Nome}', '{this.Cpf}')";
       }
-      
-      Database.ExecutarComando(sqlquery);
+      return Database.ExecutarComando(sqlquery);
     }
 
-    public static void Deletar(int id) {
+    public static bool Deletar(int id) {
       string sqlquery = $@"DELETE FROM cliente WHERE id = '{id}'";
-      Database.ExecutarComando(sqlquery);
+     return Database.ExecutarComando(sqlquery);
     }
 
   }

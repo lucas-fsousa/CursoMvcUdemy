@@ -42,7 +42,7 @@ namespace CursoMvcUdemy.Models {
       return vendedor;
     }
 
-    public void InsertEdit() {
+    public bool InsertEdit() {
       string sqlquery = "";
       if(this.Id != 0) {
         sqlquery = $@"UPDATE vendedor set name = '{this.Nome}', nomeepsrepresentante = '{this.NomeEpsRepresentante}' WHERE id = {this.Id}";
@@ -50,12 +50,12 @@ namespace CursoMvcUdemy.Models {
         sqlquery = $@"INSERT INTO vendedor (name, nomeepsrepresentante) values ('{this.Nome}', '{this.NomeEpsRepresentante}')";
       }
 
-      Database.ExecutarComando(sqlquery);
+      return Database.ExecutarComando(sqlquery);
     }
 
-    public static void Deletar(int id) {
+    public static bool Deletar(int id) {
       string sqlquery = $@"DELETE FROM vendedor WHERE id = '{id}'";
-      Database.ExecutarComando(sqlquery);
+      return Database.ExecutarComando(sqlquery);
     }
 
 

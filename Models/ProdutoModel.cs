@@ -67,7 +67,7 @@ namespace CursoMvcUdemy.Models {
       return produto;
     }
 
-    public void InsertEdit() {
+    public bool InsertEdit() {
       //this.PrecoUnitario = decimal.Parse(this.PrecoUnitario.ToString().Replace(",", "."));
       string sqlquery = "";
       if(this.Id != 0) { // Update
@@ -75,12 +75,12 @@ namespace CursoMvcUdemy.Models {
       } else { // Insert
         sqlquery = $@"INSERT INTO produto (nome, descricao, preco_unit, quantidade_estoque, unidade_medida, link_foto) values ('{this.Nome}', '{this.Descricao}', '{this.PrecoUnitario}', '{this.QuantidadeEstoque}', '{this.UnidadeMedida}', '{this.LinkFoto}')";
       }
-      Database.ExecutarComando(sqlquery);
+      return Database.ExecutarComando(sqlquery);
     }
 
-    public static void Deletar(int id) {
+    public static bool Deletar(int id) {
       string sqlquery = $@"DELETE FROM produto WHERE id = '{id}'";
-      Database.ExecutarComando(sqlquery);
+      return Database.ExecutarComando(sqlquery);
     }
 
 
